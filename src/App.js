@@ -1,9 +1,8 @@
 import React from "react";
-import { ThemeProvider, CSSReset, Box, Flex } from "@chakra-ui/core";
+import { ThemeProvider, CSSReset, Box } from "@chakra-ui/core";
 import { Header } from "./Header";
-import { Summary } from "./Summary";
-import { Presentation } from "./Presentation";
 import { Footer } from "./Footer";
+import { VideosApp } from "./videos/VideosApp";
 
 export const App = () => {
   return (
@@ -11,10 +10,7 @@ export const App = () => {
       <CSSReset />
       <Box height={"100vh"} mx="300px">
         <Header />
-        <Flex my={5}>
-          <Summary />
-          <Presentation />
-        </Flex>
+        <VideosApp />
         <Footer />
       </Box>
     </ThemeProvider>
