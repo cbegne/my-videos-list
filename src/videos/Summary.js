@@ -36,7 +36,9 @@ export const Summary = () => {
     <>
       <Stack w="300px" h="100%" mr={5} spacing={8}>
         <Box>
-          <Heading size="md">All my videos</Heading>
+          <Heading size="md" mb={1}>
+            All my videos
+          </Heading>
           <Box>Total : {total}</Box>
         </Box>
         <Divider />
@@ -49,7 +51,7 @@ export const Summary = () => {
               />
               <Input
                 type="text"
-                id="search"
+                name="search"
                 onChange={changeText}
                 value={textSearch}
               ></Input>

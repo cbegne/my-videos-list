@@ -18,8 +18,7 @@ import { useForm } from "react-hook-form";
 
 export const Presentation = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { register, handleSubmit, formState, errors } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const { register, handleSubmit, formState, errors, reset } = useForm();
   const [list, setlist] = useState([]);
 
   useEffect(() => {
@@ -32,10 +31,23 @@ export const Presentation = () => {
       });
   }, []);
 
+  const onSubmit = (data) => {
+    console.log(data);
+    fetch("/videos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then((res) => reset({}));
+  };
+
   return (
     <Stack ml={5} w="100%" spacing={8}>
       <Box>
-        <Heading size="md">My list</Heading>
+        <Heading size="md" mb={1}>
+          My list
+        </Heading>
         <List>
           {list.map(({ title }, index) => (
             <ListItem key={index}>
@@ -47,13 +59,15 @@ export const Presentation = () => {
       </Box>
       <Divider />
       <Box>
-        <Heading size="md">Add a new video</Heading>
+        <Heading size="md" mb={1}>
+          Add a new video
+        </Heading>
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormControl>
             <FormLabel htmlFor="title">Title</FormLabel>
             <Input
               type="text"
-              id="title"
+              name="title"
               ref={register({ required: true })}
             ></Input>
             <FormErrorMessage>
@@ -62,13 +76,13 @@ export const Presentation = () => {
             <FormLabel htmlFor="link">Link</FormLabel>
             <Input
               type="text"
-              id="link"
+              name="link"
               ref={register({ required: true })}
             ></Input>
             <FormLabel htmlFor="content">Content</FormLabel>
             <Textarea
               size="sm"
-              id="content"
+              name="content"
               ref={register({ required: true })}
             ></Textarea>
           </FormControl>
