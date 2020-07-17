@@ -1,0 +1,16 @@
+{
+  "videos": [
+    {
+      "id": 1,
+      "title": "my-video",
+      "link": "my-link",
+      "content": "my-content"
+    },
+    {
+      "id": 2,
+      "title": "my-video2",
+      "link": "my-link2",
+      "content": "my-content2"
+    }
+  ]
+}
