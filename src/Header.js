@@ -1,10 +1,13 @@
 import React from "react";
-import { Box } from "@chakra-ui/core";
+import { Heading, Divider } from "@chakra-ui/core";
 
 export const Header = () => {
   return (
-    <Box py={5} borderBottom="2px" borderColor="gray.300">
-      Top of my page
-    </Box>
+    <>
+      <Heading as="h1" py={5}>
+        Hello, this is my list
+      </Heading>
+      <Divider borderColor="gray.300" borderWidth="3px" />
+    </>
   );
 };
