@@ -8,7 +8,7 @@ import {
   Button,
 } from "@chakra-ui/core";
 
-export default function HookForm() {
+export const HookForm = () => {
   const { handleSubmit, errors, register, formState } = useForm();
 
   function validateName(value) {
@@ -50,4 +50,4 @@ export default function HookForm() {
       </Button>
     </form>
   );
-}
+};

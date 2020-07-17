@@ -1,14 +1,22 @@
 import React from "react";
-import HookForm from "./HookForm";
-import { ThemeProvider, CSSReset, Box } from "@chakra-ui/core";
+import { ThemeProvider, CSSReset, Box, Flex } from "@chakra-ui/core";
+import { Header } from "./Header";
+import { Summary } from "./Summary";
+import { Presentation } from "./Presentation";
+import { Footer } from "./Footer";
 
-export default function App() {
+export const App = () => {
   return (
     <ThemeProvider>
       <CSSReset />
-      <Box p={4}>
-        <HookForm />
+      <Box height={"100vh"} mx="300px">
+        <Header />
+        <Flex my={5}>
+          <Summary />
+          <Presentation />
+        </Flex>
+        <Footer />
       </Box>
     </ThemeProvider>
   );
-}
+};
