@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   Box,
   Input,
@@ -10,17 +10,13 @@ import {
   Icon,
   InputGroup,
   InputLeftElement,
+  Text,
 } from "@chakra-ui/core";
+import { VideosContext } from "./VideosContext";
 
 export const Summary = () => {
-  const [total, setTotal] = useState(null);
   const [textSearch, setTextSearch] = useState("");
-
-  useEffect(() => {
-    fetch("/videos", { method: "GET" })
-      .then((res) => res.json())
-      .then((res) => setTotal(res.length));
-  }, []);
+  const { list, isLoading } = useContext(VideosContext);
 
   const changeText = (event) => {
     const text = event.target.value;
@@ -37,9 +33,10 @@ export const Summary = () => {
       <Stack w="300px" h="100%" mr={5} spacing={8}>
         <Box>
           <Heading size="md" mb={1}>
-            All my videos
+            All my videos{" "}
+            {isLoading && <Text fontSize="xs">are loading...</Text>}
           </Heading>
-          <Box>Total : {total}</Box>
+          <Box>Total : {list.length}</Box>
         </Box>
         <Divider />
         <form onSubmit={findVideos}>

@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import {
   Box,
   Divider,
   List,
   ListItem,
+  Text,
   ListIcon,
   FormControl,
   FormLabel,
@@ -15,38 +16,29 @@ import {
   Button,
 } from "@chakra-ui/core";
 import { useForm } from "react-hook-form";
+import { VideosContext } from "./VideosContext";
+import { useCreateVideo } from "./useCreateVideo";
 
 export const Presentation = () => {
-  const [isLoading, setIsLoading] = useState(false);
   const { register, handleSubmit, formState, errors, reset } = useForm();
-  const [list, setlist] = useState([]);
+  const { list, isLoading, fetchList } = useContext(VideosContext);
+  const { createVideo } = useCreateVideo();
 
-  useEffect(() => {
-    setIsLoading(true);
-    fetch("/videos", { method: "GET" })
-      .then((res) => res.json())
-      .then((res) => {
-        setlist(res);
-        setIsLoading(false);
-      });
-  }, []);
-
-  const onSubmit = (data) => {
-    console.log(data);
-    fetch("/videos", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    }).then((res) => reset({}));
+  const onSubmit = async (data) => {
+    try {
+      await createVideo(data);
+      reset({});
+      fetchList();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
     <Stack ml={5} w="100%" spacing={8}>
       <Box>
         <Heading size="md" mb={1}>
-          My list
+          My list {isLoading && <Text fontSize="xs">is loading...</Text>}
         </Heading>
         <List>
           {list.map(({ title }, index) => (
