@@ -7,21 +7,33 @@ import {
   Textarea,
   Heading,
   Button,
+  ButtonGroup,
 } from "@chakra-ui/core";
 import { useForm } from "react-hook-form";
 import { OneVideoContext } from "../OneVideoContext";
 import { useVideos } from "../useVideos";
+import { VideosContext } from "../VideosContext";
 
 export const VideosUpdate = () => {
   const { register, handleSubmit, formState } = useForm();
-  const { infos, fetchOneVideoInfos } = useContext(OneVideoContext);
-  const { updateVideo } = useVideos();
+  const { infos, fetchOneVideoInfos, setVideoId } = useContext(OneVideoContext);
+  const { fetchList } = useContext(VideosContext);
+  const { updateVideo, deleteVideo } = useVideos();
 
   const onSubmit = async (data) => {
     try {
-      console.log(infos.id, data);
       await updateVideo({ id: infos.id, data });
-      // fetchOneVideoInfos();
+      fetchOneVideoInfos(infos.id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await deleteVideo(infos.id);
+      setVideoId(null);
+      fetchList();
     } catch (err) {
       console.log(err);
     }
@@ -61,14 +73,18 @@ export const VideosUpdate = () => {
             minHeight="120px"
           ></Textarea>
         </FormControl>
-        <Button
-          mt={4}
-          variantColor="teal"
-          isLoading={formState.isSubmitting}
-          type="submit"
-        >
-          Update
-        </Button>
+        <ButtonGroup spacing={4} mt={4}>
+          <Button
+            variantColor="teal"
+            isLoading={formState.isSubmitting}
+            type="submit"
+          >
+            Update
+          </Button>
+          <Button variantColor="teal" variant="outline" onClick={handleDelete}>
+            Delete
+          </Button>
+        </ButtonGroup>
       </form>
     </Box>
   );
