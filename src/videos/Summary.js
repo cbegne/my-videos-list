@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import {
   Box,
   Input,
@@ -11,6 +11,7 @@ import {
   InputGroup,
   InputLeftElement,
   Text,
+  Flex,
 } from "@chakra-ui/core";
 import { VideosContext } from "./VideosContext";
 
@@ -34,7 +35,11 @@ export const Summary = () => {
         <Box>
           <Heading size="md" mb={1}>
             All my videos{" "}
-            {isLoading && <Text fontSize="xs">are loading...</Text>}
+            {isLoading && (
+              <Box as="span" fontSize="xs">
+                ...are loading
+              </Box>
+            )}
           </Heading>
           <Box>Total : {list.length}</Box>
         </Box>
