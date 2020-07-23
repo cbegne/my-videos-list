@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useVideos } from "./useVideos";
 
 export const VideosContext = React.createContext({
   list: [],
@@ -7,6 +8,7 @@ export const VideosContext = React.createContext({
 });
 
 export const VideosProvider = ({ children }) => {
+  const { fetchVideos } = useVideos();
   const [list, setlist] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -14,14 +16,11 @@ export const VideosProvider = ({ children }) => {
     fetchList();
   }, []);
 
-  const fetchList = () => {
+  const fetchList = async () => {
     setIsLoading(true);
-    fetch("/videos", { method: "GET" })
-      .then((res) => res.json())
-      .then((res) => {
-        setlist(res);
-        setIsLoading(false);
-      });
+    const listFetched = await fetchVideos();
+    setlist(listFetched);
+    setIsLoading(false);
   };
 
   return (

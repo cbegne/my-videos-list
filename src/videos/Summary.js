@@ -10,8 +10,6 @@ import {
   Icon,
   InputGroup,
   InputLeftElement,
-  Text,
-  Flex,
 } from "@chakra-ui/core";
 import { VideosContext } from "./VideosContext";
 

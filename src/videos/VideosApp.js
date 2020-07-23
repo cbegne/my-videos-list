@@ -1,11 +1,18 @@
 import React from "react";
-import { Flex } from "@chakra-ui/core";
+import { Flex, Divider, Stack } from "@chakra-ui/core";
 import { Summary } from "./Summary";
 import { Presentation } from "./Presentation";
+import { VideoAdd } from "./VideoAdd";
 
-export const VideosApp = () => (
-  <Flex my={5}>
-    <Summary />
-    <Presentation />
-  </Flex>
-);
+export const VideosApp = () => {
+  return (
+    <Flex my={5}>
+      <Summary />
+      <Stack ml={5} w="100%" spacing={8}>
+        <Presentation />
+        <Divider />
+        <VideoAdd />
+      </Stack>
+    </Flex>
+  );
+};

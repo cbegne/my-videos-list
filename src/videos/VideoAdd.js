@@ -11,12 +11,12 @@ import {
 } from "@chakra-ui/core";
 import { useForm } from "react-hook-form";
 import { VideosContext } from "./VideosContext";
-import { useCreateVideo } from "./useCreateVideo";
+import { useVideos } from "./useVideos";
 
-export const AddVideo = () => {
+export const VideoAdd = () => {
   const { register, handleSubmit, formState, errors, reset } = useForm();
   const { fetchList } = useContext(VideosContext);
-  const { createVideo } = useCreateVideo();
+  const { createVideo } = useVideos();
 
   const onSubmit = async (data) => {
     try {
