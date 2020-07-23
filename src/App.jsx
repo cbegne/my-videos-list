@@ -2,7 +2,7 @@ import React from "react";
 import { ThemeProvider, CSSReset, Box } from "@chakra-ui/core";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
-import { VideosApp } from "./videos/VideosApp";
+import { VideosMain } from "./videos/VideosMain";
 import { VideosProvider } from "./videos/VideosContext";
 
 export const App = () => {
@@ -12,7 +12,7 @@ export const App = () => {
         <CSSReset />
         <Box height={"100vh"} mx="300px">
           <Header />
-          <VideosApp />
+          <VideosMain />
           <Footer />
         </Box>
       </VideosProvider>

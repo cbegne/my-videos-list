@@ -6,14 +6,14 @@ import {
   FormLabel,
   Divider,
   Stack,
-  Heading,
   Icon,
   InputGroup,
   InputLeftElement,
 } from "@chakra-ui/core";
-import { VideosContext } from "./VideosContext";
+import { VideosContext } from "../VideosContext";
+import { SummaryTitle } from "../components/Title";
 
-export const Summary = () => {
+export const VideosSummary = () => {
   const [textSearch, setTextSearch] = useState("");
   const { list, isLoading } = useContext(VideosContext);
 
@@ -31,15 +31,8 @@ export const Summary = () => {
     <>
       <Stack w="300px" h="100%" mr={5} spacing={8}>
         <Box>
-          <Heading size="md" mb={1}>
-            All my videos{" "}
-            {isLoading && (
-              <Box as="span" fontSize="xs">
-                ...are loading
-              </Box>
-            )}
-          </Heading>
-          <Box>Total : {list.length}</Box>
+          <SummaryTitle isLoading={isLoading} />
+          <Box>Total: {list.length}</Box>
         </Box>
         <Divider />
         <form onSubmit={findVideos}>

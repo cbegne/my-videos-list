@@ -11,10 +11,7 @@ export const VideosProvider = ({ children }) => {
   const { fetchVideos } = useVideos();
   const [list, setlist] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    fetchList();
-  }, []);
+  const [detailsId, setDetailsId] = useState(null);
 
   const fetchList = async () => {
     setIsLoading(true);
@@ -23,8 +20,14 @@ export const VideosProvider = ({ children }) => {
     setIsLoading(false);
   };
 
+  useEffect(() => {
+    fetchList();
+  }, []);
+
   return (
-    <VideosContext.Provider value={{ isLoading, list, fetchList }}>
+    <VideosContext.Provider
+      value={{ isLoading, list, fetchList, detailsId, setDetailsId }}
+    >
       {children}
     </VideosContext.Provider>
   );
