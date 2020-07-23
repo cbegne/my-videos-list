@@ -6,32 +6,22 @@ import {
   ListItem,
   Text,
   ListIcon,
-  FormControl,
-  FormLabel,
-  Input,
-  Textarea,
   Heading,
-  FormErrorMessage,
   Stack,
-  Button,
+  Tag,
 } from "@chakra-ui/core";
-import { useForm } from "react-hook-form";
 import { VideosContext } from "./VideosContext";
-import { useCreateVideo } from "./useCreateVideo";
+import { AddVideo } from "./AddVideo";
 
 export const Presentation = () => {
-  const { register, handleSubmit, formState, errors, reset } = useForm();
-  const { list, isLoading, fetchList } = useContext(VideosContext);
-  const { createVideo } = useCreateVideo();
+  const { list, isLoading } = useContext(VideosContext);
+  const { fetchList } = useContext(VideosContext);
 
-  const onSubmit = async (data) => {
-    try {
-      await createVideo(data);
-      reset({});
-      fetchList();
-    } catch (err) {
-      console.log(err);
-    }
+  const deleteVideo = (event) => {
+    const { id } = event.target.dataset;
+    fetch(`/videos/${id}`, {
+      method: "DELETE",
+    }).then(() => fetchList());
   };
 
   return (
@@ -41,53 +31,25 @@ export const Presentation = () => {
           My list {isLoading && <Text fontSize="xs">is loading...</Text>}
         </Heading>
         <List>
-          {list.map(({ title }, index) => (
-            <ListItem key={index}>
+          {list.map(({ title, id }) => (
+            <ListItem key={id}>
               <ListIcon icon="chevron-right" color="green.500" size="24px" />
               {title}
+              <Tag
+                as="button"
+                size="sm"
+                ml={2}
+                data-id={id}
+                onClick={deleteVideo}
+              >
+                Delete
+              </Tag>
             </ListItem>
           ))}
         </List>
       </Box>
       <Divider />
-      <Box>
-        <Heading size="md" mb={1}>
-          Add a new video
-        </Heading>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <FormControl>
-            <FormLabel htmlFor="title">Title</FormLabel>
-            <Input
-              type="text"
-              name="title"
-              ref={register({ required: true })}
-            ></Input>
-            <FormErrorMessage>
-              {errors.name && errors.name.message}
-            </FormErrorMessage>
-            <FormLabel htmlFor="link">Link</FormLabel>
-            <Input
-              type="text"
-              name="link"
-              ref={register({ required: true })}
-            ></Input>
-            <FormLabel htmlFor="content">Content</FormLabel>
-            <Textarea
-              size="sm"
-              name="content"
-              ref={register({ required: true })}
-            ></Textarea>
-          </FormControl>
-          <Button
-            mt={4}
-            variantColor="teal"
-            isLoading={formState.isSubmitting}
-            type="submit"
-          >
-            Submit
-          </Button>
-        </form>
-      </Box>
+      <AddVideo />
     </Stack>
   );
 };
