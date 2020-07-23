@@ -6,32 +6,35 @@ import {
   Input,
   Textarea,
   Heading,
-  FormErrorMessage,
   Button,
 } from "@chakra-ui/core";
 import { useForm } from "react-hook-form";
-import { VideosContext } from "../VideosContext";
+import { OneVideoContext } from "../OneVideoContext";
 import { useVideos } from "../useVideos";
 
-export const VideosAdd = () => {
-  const { register, handleSubmit, formState, errors, reset } = useForm();
-  const { fetchList } = useContext(VideosContext);
-  const { createVideo } = useVideos();
+export const VideosUpdate = () => {
+  const { register, handleSubmit, formState } = useForm();
+  const { infos, fetchOneVideoInfos } = useContext(OneVideoContext);
+  const { updateVideo } = useVideos();
 
   const onSubmit = async (data) => {
     try {
-      await createVideo(data);
-      reset({});
-      fetchList();
+      console.log(infos.id, data);
+      await updateVideo({ id: infos.id, data });
+      // fetchOneVideoInfos();
     } catch (err) {
       console.log(err);
     }
   };
 
+  if (!infos) return null;
+
+  const { title, link, content } = infos;
+
   return (
     <Box>
       <Heading size="md" mb={1}>
-        Add a new video
+        Update the video
       </Heading>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl>
@@ -40,21 +43,22 @@ export const VideosAdd = () => {
             type="text"
             name="title"
             ref={register({ required: true })}
+            defaultValue={title}
           ></Input>
-          <FormErrorMessage>
-            {errors.name && errors.name.message}
-          </FormErrorMessage>
           <FormLabel htmlFor="link">Link</FormLabel>
           <Input
             type="text"
             name="link"
             ref={register({ required: true })}
+            defaultValue={link}
           ></Input>
           <FormLabel htmlFor="content">Content</FormLabel>
           <Textarea
-            size="sm"
+            size="md"
             name="content"
             ref={register({ required: true })}
+            defaultValue={content}
+            minHeight="120px"
           ></Textarea>
         </FormControl>
         <Button
@@ -63,7 +67,7 @@ export const VideosAdd = () => {
           isLoading={formState.isSubmitting}
           type="submit"
         >
-          Submit
+          Update
         </Button>
       </form>
     </Box>

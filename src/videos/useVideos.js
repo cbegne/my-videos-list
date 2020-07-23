@@ -15,10 +15,25 @@ export const useVideos = () => {
     });
   };
 
+  const updateVideo = ({ id, data }) => {
+    fetch(`/videos/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+  };
+
   const fetchVideos = async () => {
     const response = await fetch("/videos", { method: "GET" });
     return response.json();
   };
 
-  return { createVideo, deleteVideo, fetchVideos };
+  const fetchOneVideo = async (id) => {
+    const response = await fetch(`/videos/${id}`, { method: "GET" });
+    return response.json();
+  };
+
+  return { createVideo, deleteVideo, fetchVideos, fetchOneVideo, updateVideo };
 };

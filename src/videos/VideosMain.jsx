@@ -1,21 +1,27 @@
 import React, { useContext } from "react";
 import { Flex, Divider, Stack } from "@chakra-ui/core";
 import { VideosSummary } from "./summary/VideosSummary";
-import { VideosList } from "./presentation/VideosList";
-import { VideosAdd } from "./add/VideosAdd";
-import { VideosContext } from "./VideosContext";
+import { VideosList } from "./list/VideosList";
+import { VideosAdd } from "./list/VideosAdd";
+import { OneVideoContext } from "./OneVideoContext";
 import { VideosDetails } from "./presentation/VideosDetails";
+import { VideosUpdate } from "./presentation/VideosUpdate";
 
 export const VideosMain = () => {
-  const { detailsId } = useContext(VideosContext);
+  const { videoId } = useContext(OneVideoContext);
 
   return (
     <Flex my={5}>
       <VideosSummary />
+      <Divider
+        orientation="vertical"
+        borderColor="gray.300"
+        borderWidth="3px"
+      />
       <Stack ml={5} w="100%" spacing={8}>
-        {detailsId ? <VideosDetails id={detailsId} /> : <VideosList />}
+        {videoId ? <VideosDetails id={videoId} /> : <VideosList />}
         <Divider />
-        <VideosAdd />
+        {videoId ? <VideosUpdate id={videoId} /> : <VideosAdd />}
       </Stack>
     </Flex>
   );

@@ -2,27 +2,32 @@ import React, { useContext } from "react";
 import { List, ListItem, ListIcon, Tag, Link } from "@chakra-ui/core";
 import { VideosContext } from "../VideosContext";
 import { useVideos } from "../useVideos";
-import { PresentationTitle } from "../components/Title";
+import { ListTitle } from "../components/Title";
+import { OneVideoContext } from "../OneVideoContext";
 
 export const VideosList = () => {
-  const { list, isLoading, setDetailsId } = useContext(VideosContext);
-  const { fetchList } = useContext(VideosContext);
+  const { list, isLoading, fetchList } = useContext(VideosContext);
+  const { setVideoId } = useContext(OneVideoContext);
   const { deleteVideo } = useVideos();
 
   const handleDelete = async (event) => {
     const { id } = event.target.dataset;
-    await deleteVideo(id);
-    fetchList();
+    try {
+      await deleteVideo(id);
+      fetchList();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const switchToPresentation = (event) => {
     const { id } = event.target.dataset;
-    setDetailsId(id);
+    setVideoId(id);
   };
 
   return (
     <>
-      <PresentationTitle isLoading={isLoading} />
+      <ListTitle isLoading={isLoading} />
       <List>
         {list.map(({ title, id }) => (
           <ListItem key={id}>
