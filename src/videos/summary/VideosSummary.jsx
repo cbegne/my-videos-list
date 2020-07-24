@@ -9,13 +9,16 @@ import {
   Icon,
   InputGroup,
   InputLeftElement,
+  Link,
 } from "@chakra-ui/core";
 import { VideosContext } from "../VideosContext";
-import { SummaryTitle } from "../components/Title";
+import { Title, LoadingText } from "../components/Title";
+import { OneVideoContext } from "../OneVideoContext";
 
 export const VideosSummary = () => {
   const [textSearch, setTextSearch] = useState("");
   const { list, isLoading } = useContext(VideosContext);
+  const { setVideoId } = useContext(OneVideoContext);
 
   const changeText = (event) => {
     const text = event.target.value;
@@ -27,10 +30,19 @@ export const VideosSummary = () => {
     console.log("do it ", textSearch);
   };
 
+  const handleShowList = () => {
+    setVideoId(null);
+  };
+
   return (
     <Stack minWidth="300px" h="100%" mr={5} spacing={8}>
       <Box>
-        <SummaryTitle isLoading={isLoading} />
+        <Title>
+          <Link as="button" onClick={handleShowList}>
+            All my videos
+          </Link>{" "}
+          {isLoading && <LoadingText>...are loading</LoadingText>}
+        </Title>
         <Box>Total: {list.length}</Box>
       </Box>
       <Divider />

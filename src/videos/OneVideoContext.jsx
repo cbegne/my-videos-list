@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useVideos } from "./useVideos";
 
-export const OneVideoContext = React.createContext({
-  infos: null,
-  fetchInfos: () => {},
-});
+export const OneVideoContext = React.createContext();
 
 export const OneVideoProvider = ({ children }) => {
   const { fetchOneVideo } = useVideos();

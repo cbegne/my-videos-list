@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { List, ListItem, ListIcon, Tag, Link } from "@chakra-ui/core";
 import { VideosContext } from "../VideosContext";
 import { useVideos } from "../useVideos";
-import { ListTitle } from "../components/Title";
+import { Title, LoadingText } from "../components/Title";
 import { OneVideoContext } from "../OneVideoContext";
 
 export const VideosList = () => {
@@ -27,7 +27,9 @@ export const VideosList = () => {
 
   return (
     <>
-      <ListTitle isLoading={isLoading} />
+      <Title>
+        My list {isLoading && <LoadingText>...is loading</LoadingText>}
+      </Title>
       <List>
         {list.map(({ title, id }) => (
           <ListItem key={id}>
