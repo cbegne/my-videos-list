@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { VideosContext } from "../VideosContext";
 import { useVideos } from "../useVideos";
 import { Title } from "../components/Title";
+import { VideosForm } from "../components/VideoForm";
 
 export const VideosAdd = () => {
   const { register, handleSubmit, formState, reset } = useForm();
@@ -30,27 +31,7 @@ export const VideosAdd = () => {
     <>
       <Title>Add a new video</Title>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormControl>
-          <FormLabel htmlFor="title">Title</FormLabel>
-          <Input
-            type="text"
-            name="title"
-            ref={register({ required: true })}
-          ></Input>
-          <FormLabel htmlFor="link">Link</FormLabel>
-          <Input
-            type="text"
-            name="link"
-            ref={register({ required: true })}
-          ></Input>
-          <FormLabel htmlFor="content">Content</FormLabel>
-          <Textarea
-            size="md"
-            name="content"
-            ref={register({ required: true })}
-            minHeight="120px"
-          ></Textarea>
-        </FormControl>
+        <VideosForm register={register} title="" content="" link="" />
         <Button
           mt={4}
           variantColor="teal"

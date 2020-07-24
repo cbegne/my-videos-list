@@ -1,18 +1,10 @@
 import React, { useContext } from "react";
-import {
-  Box,
-  FormControl,
-  FormLabel,
-  Input,
-  Textarea,
-  Heading,
-  Button,
-  ButtonGroup,
-} from "@chakra-ui/core";
+import { Box, Heading, Button, ButtonGroup } from "@chakra-ui/core";
 import { useForm } from "react-hook-form";
 import { OneVideoContext } from "../OneVideoContext";
 import { useVideos } from "../useVideos";
 import { VideosContext } from "../VideosContext";
+import { VideosForm } from "../components/VideoForm";
 
 export const VideosUpdate = () => {
   const { register, handleSubmit, formState } = useForm();
@@ -49,30 +41,12 @@ export const VideosUpdate = () => {
         Update the video
       </Heading>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormControl>
-          <FormLabel htmlFor="title">Title</FormLabel>
-          <Input
-            type="text"
-            name="title"
-            ref={register({ required: true })}
-            defaultValue={title}
-          ></Input>
-          <FormLabel htmlFor="link">Link</FormLabel>
-          <Input
-            type="text"
-            name="link"
-            ref={register({ required: true })}
-            defaultValue={link}
-          ></Input>
-          <FormLabel htmlFor="content">Content</FormLabel>
-          <Textarea
-            size="md"
-            name="content"
-            ref={register({ required: true })}
-            defaultValue={content}
-            minHeight="120px"
-          ></Textarea>
-        </FormControl>
+        <VideosForm
+          register={register}
+          title={title}
+          content={content}
+          link={link}
+        />
         <ButtonGroup spacing={4} mt={4}>
           <Button
             variantColor="teal"
