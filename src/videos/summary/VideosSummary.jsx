@@ -10,6 +10,7 @@ import {
   InputGroup,
   InputLeftElement,
   Link,
+  FormErrorMessage,
 } from "@chakra-ui/core";
 import { VideosContext } from "../VideosContext";
 import { Title, LoadingText } from "../components/Title";
@@ -17,17 +18,24 @@ import { OneVideoContext } from "../OneVideoContext";
 
 export const VideosSummary = () => {
   const [textSearch, setTextSearch] = useState("");
+  const [error, setError] = useState("");
   const { list, isLoading } = useContext(VideosContext);
   const { setVideoId } = useContext(OneVideoContext);
 
   const changeText = (event) => {
+    setError("");
     const text = event.target.value;
     setTextSearch(text);
   };
 
   const findVideos = (event) => {
     event.preventDefault();
-    console.log("do it ", textSearch);
+    const id = parseInt(textSearch, 10);
+    if (list.find((video) => video.id === id)) {
+      setVideoId(id);
+    } else {
+      setError("Oups... No video with this id.");
+    }
   };
 
   const handleShowList = () => {
@@ -47,8 +55,8 @@ export const VideosSummary = () => {
       </Box>
       <Divider />
       <form onSubmit={findVideos}>
-        <FormControl>
-          <FormLabel htmlFor="search">Search</FormLabel>
+        <FormControl isInvalid={error}>
+          <FormLabel htmlFor="search">Search by number</FormLabel>
           <InputGroup>
             <InputLeftElement
               children={<Icon name="search" color="gray.300" />}
@@ -60,6 +68,7 @@ export const VideosSummary = () => {
               value={textSearch}
             ></Input>
           </InputGroup>
+          <FormErrorMessage>{error}</FormErrorMessage>
         </FormControl>
       </form>
     </Stack>
