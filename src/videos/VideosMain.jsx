@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Flex, Divider, Stack } from "@chakra-ui/core";
 import { VideosSummary } from "./summary/VideosSummary";
 import { VideosList } from "./list/VideosList";
@@ -6,9 +6,19 @@ import { VideosAdd } from "./list/VideosAdd";
 import { OneVideoContext } from "./OneVideoContext";
 import { VideosDetails } from "./presentation/VideosDetails";
 import { VideosUpdate } from "./presentation/VideosUpdate";
+import { VideosContext } from "./VideosContext";
 
 export const VideosMain = () => {
-  const { videoId } = useContext(OneVideoContext);
+  const { videoId, fetchOneVideoInfos } = useContext(OneVideoContext);
+  const { fetchList } = useContext(VideosContext);
+
+  useEffect(() => {
+    if (videoId) {
+      fetchOneVideoInfos(videoId);
+    } else {
+      fetchList();
+    }
+  }, [videoId]);
 
   return (
     <Flex my={5}>

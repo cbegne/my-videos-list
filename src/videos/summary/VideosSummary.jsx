@@ -42,6 +42,8 @@ export const VideosSummary = () => {
     setVideoId(null);
   };
 
+  console.log("ici");
+
   return (
     <Stack minWidth="300px" h="100%" mr={5} spacing={8}>
       <Box>

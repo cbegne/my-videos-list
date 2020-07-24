@@ -1,11 +1,5 @@
 import React, { useContext } from "react";
-import {
-  FormControl,
-  FormLabel,
-  Input,
-  Textarea,
-  Button,
-} from "@chakra-ui/core";
+import { Button } from "@chakra-ui/core";
 import { useForm } from "react-hook-form";
 import { VideosContext } from "../VideosContext";
 import { useVideos } from "../useVideos";

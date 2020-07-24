@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useVideos } from "./useVideos";
 
 export const VideosContext = React.createContext();
@@ -15,9 +15,11 @@ export const VideosProvider = ({ children }) => {
     setIsLoading(false);
   };
 
-  useEffect(() => {
-    fetchList();
-  }, []);
+  // const value = useMemo(() => ({ isLoading, list, fetchList }), [
+  //   isLoading,
+  //   list,
+  //   fetchList,
+  // ]);
 
   return (
     <VideosContext.Provider value={{ isLoading, list, fetchList }}>

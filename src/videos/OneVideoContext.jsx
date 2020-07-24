@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useVideos } from "./useVideos";
 
 export const OneVideoContext = React.createContext();
@@ -12,13 +12,6 @@ export const OneVideoProvider = ({ children }) => {
     const infosFetched = await fetchOneVideo(id);
     setInfos(infosFetched);
   };
-
-  useEffect(() => {
-    if (videoId) {
-      const id = videoId;
-      fetchOneVideoInfos(id);
-    }
-  }, [videoId]);
 
   return (
     <OneVideoContext.Provider
