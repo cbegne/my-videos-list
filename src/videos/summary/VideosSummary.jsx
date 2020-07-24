@@ -14,13 +14,13 @@ import {
 } from "@chakra-ui/core";
 import { VideosContext } from "../VideosContext";
 import { Title, LoadingText } from "../components/Title";
-import { OneVideoContext } from "../OneVideoContext";
+import { VideoIdContext } from "../OneVideoContext";
 
 export const VideosSummary = () => {
   const [textSearch, setTextSearch] = useState("");
   const [error, setError] = useState("");
   const { list, isLoading } = useContext(VideosContext);
-  const { setVideoId } = useContext(OneVideoContext);
+  const { setVideoId } = useContext(VideoIdContext);
 
   const changeText = (event) => {
     setError("");

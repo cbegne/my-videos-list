@@ -1,14 +1,15 @@
 import React, { useContext } from "react";
 import { Box, Heading, Button, ButtonGroup } from "@chakra-ui/core";
 import { useForm } from "react-hook-form";
-import { OneVideoContext } from "../OneVideoContext";
+import { VideoInfosContext, VideoIdContext } from "../OneVideoContext";
 import { useVideos } from "../useVideos";
 import { VideosContext } from "../VideosContext";
 import { VideosForm } from "../components/VideoForm";
 
 export const VideosUpdate = () => {
   const { register, handleSubmit, formState } = useForm();
-  const { infos, fetchOneVideoInfos, setVideoId } = useContext(OneVideoContext);
+  const { infos, fetchOneVideoInfos } = useContext(VideoInfosContext);
+  const { setVideoId } = useContext(VideoIdContext);
   const { fetchList } = useContext(VideosContext);
   const { updateVideo, deleteVideo } = useVideos();
 

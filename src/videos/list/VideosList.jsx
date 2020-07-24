@@ -3,11 +3,11 @@ import { List, ListItem, ListIcon, Tag, Link } from "@chakra-ui/core";
 import { VideosContext } from "../VideosContext";
 import { useVideos } from "../useVideos";
 import { Title, LoadingText } from "../components/Title";
-import { OneVideoContext } from "../OneVideoContext";
+import { VideoIdContext } from "../OneVideoContext";
 
 export const VideosList = () => {
   const { list, isLoading, fetchList } = useContext(VideosContext);
-  const { setVideoId } = useContext(OneVideoContext);
+  const { setVideoId } = useContext(VideoIdContext);
   const { deleteVideo } = useVideos();
 
   const handleDelete = async (event) => {

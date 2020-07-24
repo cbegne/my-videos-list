@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useVideos } from "./useVideos";
 
-export const OneVideoContext = React.createContext();
+export const VideoInfosContext = React.createContext();
+export const VideoIdContext = React.createContext();
 
 export const OneVideoProvider = ({ children }) => {
   const { fetchOneVideo } = useVideos();
@@ -14,10 +15,10 @@ export const OneVideoProvider = ({ children }) => {
   };
 
   return (
-    <OneVideoContext.Provider
-      value={{ infos, fetchOneVideoInfos, videoId, setVideoId }}
-    >
-      {children}
-    </OneVideoContext.Provider>
+    <VideoInfosContext.Provider value={{ infos, fetchOneVideoInfos }}>
+      <VideoIdContext.Provider value={{ videoId, setVideoId }}>
+        {children}
+      </VideoIdContext.Provider>
+    </VideoInfosContext.Provider>
   );
 };

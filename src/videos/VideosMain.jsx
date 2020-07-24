@@ -3,13 +3,14 @@ import { Flex, Divider, Stack } from "@chakra-ui/core";
 import { VideosSummary } from "./summary/VideosSummary";
 import { VideosList } from "./list/VideosList";
 import { VideosAdd } from "./list/VideosAdd";
-import { OneVideoContext } from "./OneVideoContext";
+import { VideoInfosContext, VideoIdContext } from "./OneVideoContext";
 import { VideosDetails } from "./presentation/VideosDetails";
 import { VideosUpdate } from "./presentation/VideosUpdate";
 import { VideosContext } from "./VideosContext";
 
 export const VideosMain = () => {
-  const { videoId, fetchOneVideoInfos } = useContext(OneVideoContext);
+  const { fetchOneVideoInfos } = useContext(VideoInfosContext);
+  const { videoId } = useContext(VideoIdContext);
   const { fetchList } = useContext(VideosContext);
 
   useEffect(() => {

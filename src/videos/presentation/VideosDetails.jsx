@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { Box, Text, Link, Icon, Stack } from "@chakra-ui/core";
 import { Title } from "../components/Title";
-import { OneVideoContext } from "../OneVideoContext";
+import { VideoInfosContext } from "../OneVideoContext";
 
 export const VideosDetails = ({ id }) => {
-  const { infos } = useContext(OneVideoContext);
+  const { infos } = useContext(VideoInfosContext);
 
   if (!infos) return <Text>My content ...is loading</Text>;
 

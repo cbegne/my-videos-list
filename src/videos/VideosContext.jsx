@@ -15,12 +15,6 @@ export const VideosProvider = ({ children }) => {
     setIsLoading(false);
   };
 
-  // const value = useMemo(() => ({ isLoading, list, fetchList }), [
-  //   isLoading,
-  //   list,
-  //   fetchList,
-  // ]);
-
   return (
     <VideosContext.Provider value={{ isLoading, list, fetchList }}>
       {children}
